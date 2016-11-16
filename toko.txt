@@ -1,0 +1,6 @@
+pokeball_Poke Ball_200_0
+pokeball_Great Ball_600_10
+potion_Potion_300_20
+potion_Super Potion_700_50
+potion_Hyper Potion_1200_200
+.
