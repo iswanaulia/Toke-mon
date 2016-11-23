@@ -1,41 +1,47 @@
-/* File  : mesinkar1.c */ 
-/* Body mesinkar1.h  */ 
-#include <assert.h> 
-#include <stdio.h> 
-#include "mesinkar.h" 
+/* File: mesinkar.c */
+/* Implementasi Mesin Karakter */
 
-/* definisi states  */ 
+#include "mesinkar.h"
+#include <stdio.h>
+
 char CC;
-boolean EOP = false;
+boolean EOP;
 
-/* definisi pita  */ 
- 
-static FILE *FILEKU; 
-static int retval; 
+static FILE * pita;
+static int retval;
 
-void START()
-{
-	FILEKU = fopen("toko.txt","r"); 
+void START(char s[]) {
+/* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.
+   Karakter pertama yang ada pada pita posisinya adalah pada jendela.
+   I.S. : sembarang
+   F.S. : CC adalah karakter pertama pada pita. Jika CC != MARK maka EOP akan padam (false).
+          Jika CC = MARK maka EOP akan menyala (true) */
+
+	/* Algoritma */
+	pita = fopen(s,"r");
 	ADV();
 }
 
-void ADV()
-{
-	retval  = fscanf(FILEKU,"%c",&CC); 
-	EOP = (CC==MARK);
-	if  (EOP)
-		fclose(FILEKU);
-} 
+void ADV() {
+/* Pita dimajukan satu karakter. 
+   I.S. : Karakter pada jendela = 
+          CC, CC != MARK
+   F.S. : CC adalah karakter berikutnya dari CC yang lama, 
+          CC mungkin = MARK.
+		  Jika  CC = MARK maka EOP akan menyala (true) */
 
-void PrintToken()
-{
-	START();
-	while (!EOP)
-	{
-		if (CC=='_')
-			printf("\t");
-		else
-			printf("%c",CC);
-		ADV(); //Char berikutnya
+	/* Algoritma */
+	retval = fscanf(pita,"%c",&CC);
+	EOP = (CC == MARK);
+	if (EOP) {
+       fclose(pita);
+ 	}
+}
+
+void Print(char s[]){
+	START(s);
+	while (!EOP) {
+		printf("%c",CC);
+		ADV();
 	}
 }

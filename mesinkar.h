@@ -1,31 +1,29 @@
-#ifndef _MESIN_KAR_
-#define _MESIN_KAR_
+/* File: mesinkar.h */
+/* Definisi Mesin Karakter */
 
-#define true 1
-#define false 0
-#define boolean unsigned char
+#ifndef __MESIN_KAR_H_
+#define __MESIN_KAR_H_
 
-// ********** Mesin Karakter dengan asersi dan primitif read **********
-// ** Pita karakter diambil dari file "pitakar.txt" **
+#include "boolean.h"
 
 #define MARK '.'
-
-// State mesin
+/* State Mesin */
 extern char CC;
 extern boolean EOP;
-// ********** DEFINISI PROTOTIPE PRIMITIF **********
 
-void START();
-// I.S. sembarang
-// F.S. CC adalah karakter pertama pitakar
-// Jika CC == MARK, EOP menyala (true)
-// Jika CC != MARK, EOP padam (false)
+void START(char s[]);
+/* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.
+   Karakter pertama yang ada pada pita posisinya adalah pada jendela.
+   I.S. : sembarang
+   F.S. : CC adalah karakter pertama pada pita
+          Jika CC != MARK maka EOP akan padam (false)
+          Jika CC = MARK maka EOP akan menyala (true) */
 
 void ADV();
-// I.S CC != MARK
-// F.S. CC adalah karakter berikutnya dari CC pada I.S.
-// Jika CC == MARK, EOP menyala (true)
-
-void PrintToken();
-
+/* Pita dimajukan satu karakter. 
+   I.S. : Karakter pada jendela = CC, CC != MARK
+   F.S. : CC adalah karakter berikutnya dari CC yang lama, 
+          CC mungkin = MARK
+          Jika  CC = MARK maka EOP akan menyala (true) */
+void Print(char s[]);
 #endif
